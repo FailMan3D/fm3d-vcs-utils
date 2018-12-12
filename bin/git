@@ -26,9 +26,8 @@ case "$1" in
 		esac
 		;;
 	"describe")
-		git config -l \
-		| egrep 'branch.*description=' \
-		| sed 's/branch\.\(.*\)\.description=\(.*\)/\1: \2/'
+		shift
+		$gitpath show-branch-description.sh "$@"
 		;;
 		
 	*)
