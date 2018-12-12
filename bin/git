@@ -1,0 +1,37 @@
+#!/bin/sh
+# vim: ts=4 sts=0 sw=4 noet ai
+# Because Git doesn't support subcommand aliases
+
+# Hard-coded path to git
+# DANGER: Don't replace this with "command git",
+# doing so will turn this script into a forkbomb!
+gitpath=/usr/bin/git
+
+case "$1" in
+	"stash")
+		shift # discard $1
+		case "$1" in
+			"diff")
+				shift
+				# "stash-diff" is a Git alias for "stash show -p"
+				$gitpath stash-diff "$@"
+				;;
+			"ls")
+				shift
+				$gitpath stash list "$@"
+				;;
+			*)
+				$gitpath stash "$@"
+				;;
+		esac
+		;;
+	"describe")
+		git config -l \
+		| egrep 'branch.*description=' \
+		| sed 's/branch\.\(.*\)\.description=\(.*\)/\1: \2/'
+		;;
+		
+	*)
+		$gitpath "$@"
+		;;
+esac
