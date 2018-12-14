@@ -54,4 +54,6 @@ while(my $line = <$git_child>){
 	}
 }
 close($git_child);
-print STDOUT Dumper($file_funcs), "\n";
+my $output = {%{$file_funcs}{grep { keys(%{$file_funcs->{$_}}) } keys %{$file_funcs}}};
+print STDOUT Dumper(\$output), "\n";
+
