@@ -29,7 +29,6 @@ case "$1" in
 		shift
 		$gitpath show-branch-description.sh "$@"
 		;;
-		
 	*)
 		$gitpath "$@"
 		;;
